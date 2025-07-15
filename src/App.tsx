@@ -7,6 +7,7 @@ import { TransactionHistory } from './components/TransactionHistory';
 import Analytics from './components/Analytics';
 import { useWallet } from './hooks/useWallet';
 import { useTransactions } from './hooks/useTransactions';
+import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 
 function App() {
   const { user, isConnecting, error, connectWallet, disconnectWallet, refreshBalance } = useWallet();
@@ -85,6 +86,7 @@ function App() {
         )}
         {renderActiveTab()}
       </main>
+      <VercelAnalytics />
     </div>
   );
 }
