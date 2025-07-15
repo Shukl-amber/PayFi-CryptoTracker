@@ -3,8 +3,9 @@ import { useWallet } from "../hooks/useWallet";
 import { useTransactions } from "../hooks/useTransactions";
 import { WalletConnection } from "./WalletConnection";
 import { TransactionHistory } from "./TransactionHistory";
-import { Analytics } from "./Analytics";
+import Analytics from "./Analytics";
 import { SendTokenModal } from "./SendTokenModal";
+import { Notes } from "./Notes";
 
 export const Dashboard: React.FC = () => {
   const { user, isConnecting, error: walletError, connectWallet } = useWallet();
@@ -85,6 +86,9 @@ export const Dashboard: React.FC = () => {
           onUpdateCategory={updateTransactionCategory}
         />
       )}
+
+      {/* Notes Section */}
+      <Notes />
 
       <SendTokenModal
         isOpen={isAddModalOpen}

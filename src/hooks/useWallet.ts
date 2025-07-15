@@ -104,7 +104,7 @@ export const useWallet = () => {
       try {
         const newBalance = await walletService.getBalance(user.address);
         setUser((prev) =>
-          prev ? { ...prev, balance: parseFloat(newBalance).toFixed(4) } : null
+          prev ? { ...prev, balance: parseFloat(newBalance).toFixed(1) } : null
         );
       } catch (error) {
         console.error("Failed to refresh balance:", error);

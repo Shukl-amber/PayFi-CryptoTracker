@@ -12,9 +12,11 @@ export interface Transaction {
   to: string;
   value: string;
   timestamp: number;
-  status: "Sent";
+  status: "pending" | "confirmed" | "failed";
   note?: string;
   category?: string;
+  gasUsed?: string;
+  gasPrice?: string;
 }
 
 export type TransactionUpdate = {
@@ -53,14 +55,12 @@ export const SHARDEUM_NETWORK: NetworkConfig = {
 };
 
 export const EXPENSE_CATEGORIES = [
+  "P2P Transfer",
   "DeFi Trading",
   "NFT Purchases",
   "Gaming",
   "Utilities",
   "Transfer",
-  "Staking",
-  "Yield Farming",
-  "Gas Fees",
   "Exchange",
   "Other",
 ] as const;

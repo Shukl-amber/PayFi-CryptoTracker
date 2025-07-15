@@ -11,7 +11,6 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
     { id: 'history', label: 'History', icon: History },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
   ];
 
   return (

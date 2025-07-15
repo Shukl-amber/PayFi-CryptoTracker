@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { TransactionHistory } from './components/TransactionHistory';
-import { Analytics } from './components/Analytics';
+import Analytics from './components/Analytics';
 import { useWallet } from './hooks/useWallet';
 import { useTransactions } from './hooks/useTransactions';
 

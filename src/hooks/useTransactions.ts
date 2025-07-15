@@ -72,7 +72,8 @@ export const useTransactions = (userAddress: string | null) => {
       setError(null);
 
       try {
-        const txHash = await walletService.sendTransaction(to, amount);
+        const tx = await walletService.sendTransaction(to, amount);
+        const txHash = tx.hash;
 
         // Refresh transactions immediately after sending
         await fetchTransactions();

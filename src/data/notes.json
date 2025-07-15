@@ -1,0 +1,36 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "Upcoming Features",
+      "content": "Features planned for future releases",
+      "items": [
+        "Dedicated tab for Analytics",
+        "Advanced filtering options",
+        "AI Powered Analytics",
+        "Multiple wallet support",
+        "Custom categories"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Past History Callback",
+      "content": "",
+      "items": [
+        "Feching previous transactions (Not Possible on current Testnet Endpoint)",
+        "Create changable date ranges for analytics",
+        "Better Anlytics charts and graphs"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Global integration of Database for full release",
+      "content": "Details on Database",
+      "items": [
+        "Currently using a local database to store data",
+        "Will be moved to a permanent database for full release",
+        "This will allow for a more seamless experience and better data accuracy"
+      ]
+    }
+  ]
+}

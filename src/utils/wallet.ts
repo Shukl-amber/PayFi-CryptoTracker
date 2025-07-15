@@ -149,7 +149,31 @@ export class WalletService {
     }
   }
 
-  async sendTransaction(to: string, amount: string): Promise<string> {
+  private formatTransactionError(error: any): string {
+    if (error?.code === 4001) {
+      return "Transaction was rejected by user";
+    }
+    if (error?.message?.includes("insufficient funds")) {
+      return "Insufficient funds to complete this transaction";
+    }
+    if (error?.message?.includes("gas required exceeds")) {
+      return "Gas required exceeds allowance or wallet balance";
+    }
+    if (error?.message?.includes("nonce")) {
+      return "Transaction nonce is incorrect. Please try again";
+    }
+    if (error?.message?.includes("gas price")) {
+      return "Gas price too low. Please try again";
+    }
+    return "Transaction failed. Please try again";
+  }
+
+  async sendTransaction(
+    to: string,
+    amount: string,
+    category: string,
+    note?: string
+  ): Promise<Transaction> {
     try {
       if (!this.signer) {
         throw new Error("Wallet not connected");
@@ -168,7 +192,7 @@ export class WalletService {
         to: to,
         value: ethers.parseEther(amount).toString(),
         timestamp: Math.floor(Date.now() / 1000),
-        status: "Sent",
+        status: "pending",
         note: "",
         category: "",
       };
@@ -188,6 +212,8 @@ export class WalletService {
             transactions[txIndex] = {
               ...transactions[txIndex],
               status: "confirmed", // Update status to confirmed
+              gasUsed: receipt.gasUsed ? receipt.gasUsed.toString() : undefined,
+              gasPrice: receipt.gasPrice ? receipt.gasPrice.toString() : undefined,
             };
 
             this.updateLocalStorage(transactions);
@@ -200,10 +226,10 @@ export class WalletService {
           const txIndex = transactions.findIndex((t) => t.hash === tx.hash);
         });
 
-      return tx.hash;
+      return newTransaction;
     } catch (error: any) {
       console.error("Transaction error:", error);
-      throw this.handleWalletError(error);
+      throw new Error(this.formatTransactionError(error));
     }
   }
 
@@ -248,7 +274,7 @@ export class WalletService {
 
       const balance = await this.provider!.getBalance(address);
       const formattedBalance = ethers.formatEther(balance);
-      return parseFloat(formattedBalance).toFixed(4);
+      return parseFloat(formattedBalance).toFixed(1);
     } catch (error) {
       console.error("Error fetching balance:", error);
       throw error;
